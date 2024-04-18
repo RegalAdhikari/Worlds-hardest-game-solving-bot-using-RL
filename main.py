@@ -1,3 +1,5 @@
+import sys
+
 import pygame
 from player import Player
 from enemy import Enemy
@@ -12,11 +14,17 @@ screen = pygame.display.set_mode((screen_w, screen_h))
 tmx_data = load_pygame('Tiles/Level1.tmx')
 sprite_group = pygame.sprite.Group()
 isRunning = True
-player = Player(140, 275, 37, 37)
+spawnpoint_x = 140
+spawnpoint_y = 275
+player = Player(spawnpoint_x, spawnpoint_y, 37, 37)
 enemy = Enemy(640, 285, 14, 14, True, False)
 enemy2 = Enemy(640, 415, 14, 14, True, False)
 enemy3 = Enemy(640, 350, 14, 14, True, False, False)
 enemy4 = Enemy(640, 480, 14, 14, True, False, False)
+
+color = (255, 0, 0)
+redrect = pygame.Rect(1050, 200, 50, 50)
+redrect.topleft = (1050, 200)
 
 
 class Tile(pygame.sprite.Sprite):
@@ -50,6 +58,25 @@ def update():
     enemy2.move(345, 935)
     enemy3.move(345, 935)
     enemy4.move(345, 935)
+    collide = pygame.Rect.colliderect(player.rect1, enemy.rect2)
+    if collide:
+        player.player_x = spawnpoint_x
+        player.player_y = spawnpoint_y
+    collide2 = pygame.Rect.colliderect(player.rect1, enemy2.rect2)
+    if collide2:
+        player.player_x = spawnpoint_x
+        player.player_y = spawnpoint_y
+    collide3 = pygame.Rect.colliderect(player.rect1, enemy3.rect2)
+    if collide3:
+        player.player_x = spawnpoint_x
+        player.player_y = spawnpoint_y
+    collide4 = pygame.Rect.colliderect(player.rect1, enemy4.rect2)
+    if collide4:
+        player.player_x = spawnpoint_x
+        player.player_y = spawnpoint_y
+    collidered = pygame.Rect.colliderect(player.rect1, redrect)
+    if collidered:
+        sys.exit()
 
 
 def draw():
@@ -61,6 +88,7 @@ def draw():
     enemy2.draw(screen)
     enemy3.draw(screen)
     enemy4.draw(screen)
+    # pygame.draw.rect(screen, color, pygame.Rect(1050, 200, 60, 60), 2)
     pygame.display.update()
 
 

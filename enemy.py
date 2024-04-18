@@ -11,6 +11,8 @@ class Enemy:
         self.color = color
         self.right = right
         self.up = up
+        self.rect2 = pygame.Rect(player_x, player_y, 14, 14)
+        self.rect2.topleft = (player_x, player_y)
 
     def draw(self, screen):
         pygame.draw.circle(screen, (0, 0, 255), (self.player_x, self.player_y), self.width, self.height)
@@ -20,5 +22,7 @@ class Enemy:
             self.right = not self.right
         if self.right:
             self.player_x += self.enemy_speed
+            self.rect2.x = self.player_x
         else:
             self.player_x -= self.enemy_speed
+            self.rect2.x = self.player_x
