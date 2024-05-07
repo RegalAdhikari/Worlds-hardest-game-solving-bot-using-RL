@@ -4,15 +4,6 @@ from player import Player
 from enemy import Enemy
 from pytmx.util_pygame import load_pygame
 pygame.init()
-
-
-class Direction(Enum):
-    RIGHT = 1
-    LEFT = 2
-    UP = 3
-    DOWN = 4
-
-
 screen_w = 1320
 screen_h = 720
 screen = pygame.display.set_mode((screen_w, screen_h))
@@ -87,7 +78,6 @@ def update():
 def draw():
     # screen.fill((181, 181, 252))
     screen.fill('white')
-
     sprite_group.draw(screen)
     drawColliders()
     player.draw(screen)
@@ -95,7 +85,6 @@ def draw():
     enemy2.draw(screen)
     enemy3.draw(screen)
     enemy4.draw(screen)
-
     pygame.draw.rect(screen, color, pygame.Rect(1050, 200, 60, 60), 2)
     pygame.display.update()
 
