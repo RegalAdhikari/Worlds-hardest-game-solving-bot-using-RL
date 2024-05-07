@@ -1,5 +1,4 @@
 import sys
-
 import pygame
 from player import Player
 from enemy import Enemy
@@ -11,7 +10,7 @@ pygame.init()
 screen_w = 1320
 screen_h = 720
 screen = pygame.display.set_mode((screen_w, screen_h))
-tmx_data = load_pygame('Tiles/Level1.tmx')
+tmx_data = load_pygame('Tiles/Level2.tmx')
 sprite_group = pygame.sprite.Group()
 isRunning = True
 spawnpoint_x = 140
@@ -23,8 +22,8 @@ enemy3 = Enemy(640, 350, 14, 14, True, False, False)
 enemy4 = Enemy(640, 480, 14, 14, True, False, False)
 
 color = (255, 0, 0)
-redrect = pygame.Rect(1050, 200, 50, 50)
-redrect.topleft = (1050, 200)
+redrect = pygame.Rect(1100, 260, 60, 120)
+redrect.topleft = (1100, 260)
 
 
 class Tile(pygame.sprite.Sprite):
@@ -89,7 +88,7 @@ def draw():
     enemy3.draw(screen)
     enemy4.draw(screen)
     
-    pygame.draw.rect(screen, color, pygame.Rect(1050, 200, 60, 60), 2)
+    pygame.draw.rect(screen, color, pygame.Rect(1100, 260, 60, 120), 2)
     pygame.display.update()
 
 
