@@ -6,7 +6,8 @@ import pytmx
 from pytmx.util_pygame import load_pygame
 
 pygame.init()
-
+tile_rect = []
+collider_rects = []  # List of tile colliders
 screen_w = 1320
 screen_h = 720
 screen = pygame.display.set_mode((screen_w, screen_h))
@@ -15,7 +16,7 @@ sprite_group = pygame.sprite.Group()
 isRunning = True
 spawnpoint_x = 140
 spawnpoint_y = 275
-player = Player(spawnpoint_x, spawnpoint_y, 37, 37)
+player = Player(spawnpoint_x, spawnpoint_y, 37, 37,5)
 enemy = Enemy(640, 285, 14, 14, True, False)
 enemy2 = Enemy(640, 415, 14, 14, True, False)
 enemy3 = Enemy(640, 350, 14, 14, True, False, False)
@@ -35,20 +36,18 @@ class Tile(pygame.sprite.Sprite):
 
 for layer in tmx_data.visible_layers:
     if hasattr(layer, 'data'):
-        for x, y, surf in layer.tiles():
-            pos = (x * 64, y * 64)
-            Tile(pos=pos, surf=surf, groups=sprite_group)
+        if layer.name == "Main":
+            for x, y, surf in layer.tiles():
+                pos = (x * 64, y * 64)
+                Tile(pos=pos, surf=surf, groups=sprite_group)
+                tile_rect.append(pygame.Rect(x * 64, y * 64, 64, 64))
+                collider_rects.append(pygame.Rect(x * 64, y * 64, 64, 64))
 
 for layer in tmx_data.visible_layers:
     if hasattr(layer, 'data'):
-        if layer.name == "Main":
-            print("YOU HIT THE RED BLOCK!!")
-            # for obj in layer:
-            #     print(layer.name)
-            #     if pygame.Rect(obj.x, obj.y, obj.width, obj.height).colliderect(player.rect) == True:
-            #         print("YOU HIT THE RED BLOCK!!")
-            #         break
-
+        for x, y, surf in layer.tiles():
+            pos = (x * 64, y * 64)
+            Tile(pos=pos, surf=surf, groups=sprite_group)
 
 def update():
     keys = pygame.key.get_pressed()
@@ -81,6 +80,7 @@ def update():
 def draw():
     # screen.fill((181, 181, 252))
     screen.fill('white')
+    drawColliders()
     sprite_group.draw(screen)
     player.draw(screen)
     enemy.draw(screen)
@@ -90,6 +90,18 @@ def draw():
     
     pygame.draw.rect(screen, color, pygame.Rect(1100, 260, 60, 120), 2)
     pygame.display.update()
+
+
+def drawColliders():
+    index = 0
+    for b in tile_rect:
+        # To see the colliders simply uncomment the line below
+        # pygame.draw.rect(screen, color, tile_rect[index])
+        collideboundary = pygame.Rect.colliderect(player.rect1, collider_rects[index])
+        if collideboundary:
+            player.player_x = spawnpoint_x
+            player.player_y = spawnpoint_y
+        index = index + 1
 
 
 while isRunning:
