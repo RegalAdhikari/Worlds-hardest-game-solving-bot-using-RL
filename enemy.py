@@ -11,7 +11,7 @@ class Enemy:
         self.color = color
         self.right = right
         self.up = up
-        self.rect2 = pygame.Rect(player_x, player_y, 14, 14)
+        self.rect2 = pygame.Rect(player_x-14, player_y-14, 28, 28)
         self.rect2.topleft = (player_x, player_y)
 
     def draw(self, screen):

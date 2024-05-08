@@ -13,16 +13,16 @@ class Player:
         self.rect1.topleft = (player_x, player_y)
 
     def move(self, keys):
-        if keys[pygame.K_a] and self.player_x > 0:
+        if keys[pygame.K_LEFT] and self.player_x > 0:
             self.player_x -= self.player_speed
             self.rect1.x = self.player_x
-        if keys[pygame.K_d] and self.player_x < 1320 - self.height:
+        if keys[pygame.K_RIGHT] and self.player_x < 1320 - self.height:
             self.player_x += self.player_speed
             self.rect1.x = self.player_x
-        if keys[pygame.K_w] and self.player_y > 0:
+        if keys[pygame.K_UP] and self.player_y > 0:
             self.player_y -= self.player_speed
             self.rect1.y = self.player_y
-        if keys[pygame.K_s] and self.player_y < 720 - self.width:
+        if keys[pygame.K_DOWN] and self.player_y < 720 - self.width:
             self.player_y += self.player_speed
             self.rect1.y = self.player_y
     def draw(self, screen):
