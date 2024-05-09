@@ -17,10 +17,18 @@ isRunning = True
 spawnpoint_x = 140
 spawnpoint_y = 275
 player = Player(spawnpoint_x, spawnpoint_y, 37, 37,5)
-enemy = Enemy(640, 285, 14, 14, True, False)
-enemy2 = Enemy(640, 415, 14, 14, True, False)
-enemy3 = Enemy(640, 350, 14, 14, True, False, False)
-enemy4 = Enemy(640, 480, 14, 14, True, False, False)
+enemy = Enemy(350, 155, 14, 14, True, False)
+enemy2 = Enemy(414, 484, 14, 14, True, False)
+enemy3 = Enemy(478, 155, 14, 14, True, False, False, False)
+enemy4 = Enemy(542, 484, 14, 14, True, False, False, False)
+enemy5 = Enemy(606, 155, 14, 14, True, False, False, False)
+enemy6 = Enemy(670, 484, 14, 14, True, False, False,False)
+enemy7 = Enemy(734, 155, 14, 14, True, False, False, False)
+enemy8 = Enemy(798, 484, 14, 14, True, False, False, False)
+enemy9 = Enemy(862, 155, 14, 14, True, False, False, False)
+enemy10 = Enemy(926, 484, 14, 14, True, False, False, False)
+enemy11 = Enemy(990, 155, 14, 14, True, False, False, False)
+enemy12 = Enemy(1054, 484, 14, 14, True, False, False, False)
 
 color = (255, 0, 0)
 redrect = pygame.Rect(1100, 260, 60, 120)
@@ -52,10 +60,18 @@ for layer in tmx_data.visible_layers:
 def update():
     keys = pygame.key.get_pressed()
     player.move(keys)
-    enemy.move(345, 935)
-    enemy2.move(345, 935)
-    enemy3.move(345, 935)
-    enemy4.move(345, 935)
+    enemy.move2(155, 484)
+    enemy2.move2(155, 484)
+    enemy3.move2(155, 484)
+    enemy4.move2(155, 484)
+    enemy5.move2(155, 484)
+    enemy6.move2(155, 484)
+    enemy7.move2(155, 484)
+    enemy8.move2(155, 484)
+    enemy9.move2(155, 484)
+    enemy10.move2(155, 484)
+    enemy11.move2(155, 484)
+    enemy12.move2(155, 484)
     collide = pygame.Rect.colliderect(player.rect1, enemy.rect2)
     if collide:
         player.player_x = spawnpoint_x
@@ -70,6 +86,38 @@ def update():
         player.player_y = spawnpoint_y
     collide4 = pygame.Rect.colliderect(player.rect1, enemy4.rect2)
     if collide4:
+        player.player_x = spawnpoint_x
+        player.player_y = spawnpoint_y
+    collide5 = pygame.Rect.colliderect(player.rect1, enemy5.rect2)
+    if collide5:
+        player.player_x = spawnpoint_x
+        player.player_y = spawnpoint_y
+    collide6 = pygame.Rect.colliderect(player.rect1, enemy6.rect2)
+    if collide6:
+        player.player_x = spawnpoint_x
+        player.player_y = spawnpoint_y
+    collide7 = pygame.Rect.colliderect(player.rect1, enemy7.rect2)
+    if collide7:
+        player.player_x = spawnpoint_x
+        player.player_y = spawnpoint_y
+    collide8 = pygame.Rect.colliderect(player.rect1, enemy8.rect2)
+    if collide8:
+        player.player_x = spawnpoint_x
+        player.player_y = spawnpoint_y
+    collide9 = pygame.Rect.colliderect(player.rect1, enemy9.rect2)
+    if collide9:
+        player.player_x = spawnpoint_x
+        player.player_y = spawnpoint_y
+    collide10 = pygame.Rect.colliderect(player.rect1, enemy10.rect2)
+    if collide10:
+        player.player_x = spawnpoint_x
+        player.player_y = spawnpoint_y
+    collide11 = pygame.Rect.colliderect(player.rect1, enemy11.rect2)
+    if collide11:
+        player.player_x = spawnpoint_x
+        player.player_y = spawnpoint_y
+    collide12 = pygame.Rect.colliderect(player.rect1, enemy12.rect2)
+    if collide12:
         player.player_x = spawnpoint_x
         player.player_y = spawnpoint_y
     collidered = pygame.Rect.colliderect(player.rect1, redrect)
@@ -87,6 +135,14 @@ def draw():
     enemy2.draw(screen)
     enemy3.draw(screen)
     enemy4.draw(screen)
+    enemy5.draw(screen)
+    enemy6.draw(screen)
+    enemy7.draw(screen)
+    enemy8.draw(screen)
+    enemy9.draw(screen)
+    enemy10.draw(screen)
+    enemy11.draw(screen)
+    enemy12.draw(screen)
     
     pygame.draw.rect(screen, color, pygame.Rect(1100, 260, 60, 120), 2)
     pygame.display.update()

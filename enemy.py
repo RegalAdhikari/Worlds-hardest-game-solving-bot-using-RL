@@ -26,3 +26,13 @@ class Enemy:
         else:
             self.player_x -= self.enemy_speed
             self.rect2.x = self.player_x
+
+    def move2(self, bound_y1, bound_y2):
+        if self.player_y < bound_y1 or self.player_y > bound_y2:
+            self.up = not self.up
+        if self.up:
+            self.player_y += self.enemy_speed
+            self.rect2.y = self.player_y
+        else:
+            self.player_y -= self.enemy_speed
+            self.rect2.y = self.player_y
