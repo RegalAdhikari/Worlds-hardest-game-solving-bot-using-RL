@@ -15,6 +15,7 @@ class Direction(Enum):
 
 class Level1AI:
     def __init__(self):
+        self.frame_iteration = 0
         pygame.init()
         self.screen_w = 1320
         self.screen_h = 720
@@ -61,7 +62,7 @@ class Level1AI:
 
     def update(self):
         keys = pygame.key.get_pressed()
-        self.player.move(keys)
+
         self.enemy.move(345, 935)
         self.enemy2.move(345, 935)
         self.enemy3.move(345, 935)
@@ -84,6 +85,7 @@ class Level1AI:
     def reset(self):
         self.player.player_x = self.spawnpoint_x
         self.player.player_y = self.spawnpoint_y
+        self.frame_iteration = 0
     def drawColliders(self):
         index = 0
         for b in self.tile_rect:
@@ -105,20 +107,22 @@ class Level1AI:
         # pygame.draw.rect(self.screen, self.color, pygame.Rect(self.enemy.player_x-14,self.enemy.player_y-14,28,28),2)
         pygame.display.update()
 
-    def run(self):
-        self.setup_tiles()
-        while self.is_running:
-            pygame.time.delay(50)
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.is_running = False
-            self.update()
-            self.draw()
-            pygame.display.update()
-
+    def play_step(self, action):
+        pygame.time.delay(50)
+        self.frame_iteration += 1
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.is_running = False
+        self.update()
+        self.draw()
+        pygame.display.update()
         pygame.quit()
+
+        self.player.move(action)
 
 
 if __name__ == "__main__":
     game = Level1AI()
-    game.run()
+    game.setup_tiles()
+    while game.is_running:
+        game.play_step()
