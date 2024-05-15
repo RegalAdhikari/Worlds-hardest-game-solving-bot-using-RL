@@ -35,7 +35,12 @@ class Level1AI:
         self.color = (255, 0, 0)
         self.red_rect = pygame.Rect(1050, 200, 50, 50)
         self.red_rect.topleft = (1050, 200)
-
+        self.left_point = pygame.Rect(self.player.player_x + self.player.width, self.player.player_y + self.player.width / 2, 5, 5)
+        self.left_point.topleft = (self.player.player_x + self.player.width, self.player.player_y + self.player.width)
+        self.up_point = pygame.Rect(self.player.player_x + self.player.width / 2, self.player.player_y - 1, 1, 1)
+        self.up_point.topleft = (self.player.player_x + self.player.width / 2, self.player.player_y - 1)
+        self.down_point = pygame.Rect(self.player.player_x + self.player.width / 2, self.player.player_y + self.player.width, 1, 1)
+        self.down_point.topleft = (self.player.player_x + self.player.width / 2, self.player.player_y + self.player.width)
     class Tile(pygame.sprite.Sprite):
         def __init__(self, pos, surf, groups):
             super().__init__(groups)
@@ -66,6 +71,9 @@ class Level1AI:
         self.enemy2.move(345, 935)
         self.enemy3.move(345, 935)
         self.enemy4.move(345, 935)
+        self.left_point = pygame.Rect(self.player.player_x + self.player.width, self.player.player_y + self.player.width / 2, 1, 1)
+        self.up_point = pygame.Rect(self.player.player_x + self.player.width / 2, self.player.player_y -1 , 1, 1)
+        self.down_point = pygame.Rect(self.player.player_x + self.player.width / 2, self.player.player_y + self.player.width, 1, 1)
         collide = pygame.Rect.colliderect(self.player.rect1, self.enemy.rect2)
         if collide:
             self.reset()
@@ -87,15 +95,38 @@ class Level1AI:
     def drawColliders(self):
         index = 0
         for b in self.tile_rect:
-            collideboundary = pygame.Rect.colliderect(self.player.rect1, self.collider_rects[index])
-            if collideboundary:
-                self.reset()
+            cleft_point = pygame.Rect.colliderect(self.left_point, self.collider_rects[index])
+            if cleft_point:
+                self.player.player_x -= 5
+                self.player.can_move_left = False
+            elif not cleft_point:
+                self.player.can_move_left = True
+            c_up_point = pygame.Rect.colliderect(self.up_point, self.collider_rects[index])
+            if c_up_point:
+                self.player.player_y += 5
+                self.player.can_move_up = False
+            elif not c_up_point:
+                self.player.can_move_up= True
+            c_down_point = pygame.Rect.colliderect(self.down_point, self.collider_rects[index])
+            if c_down_point:
+                self.player.player_y -= 5
+                self.player.can_move_down = False
+            elif not c_down_point:
+                self.player.can_move_down = True
+            # collideboundary_left = pygame.Rect.colliderect(self.player.rect1, self.collider_rects[index])
+            # if collideboundary_left:
+            #      self.reset()
+            #      self.player.player_x -=5
+            #      self.player.can_move_left = False
+            # else:
+            #     self.player.player_x = self.player.player_x
+            # #     self.player.can_move_left = True
             index += 1
 
     def draw(self):
         self.screen.fill('white')
-        self.sprite_group.draw(self.screen)
         self.drawColliders()
+        self.sprite_group.draw(self.screen)
         self.player.draw(self.screen)
         self.enemy.draw(self.screen)
         self.enemy2.draw(self.screen)

@@ -14,6 +14,8 @@ class Direction(Enum):
 
 
 class Level1AI:
+
+
     def __init__(self):
         self.frame_iteration = 0
         pygame.init()
